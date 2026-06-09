@@ -3,15 +3,15 @@ const zoneViewer = document.getElementById('zoneViewer');
 let zoneFrame = document.getElementById('zoneFrame');
 const searchBar = document.getElementById('searchBar');
 const sortOptions = document.getElementById('sortOptions');
-// https://www.jsdelivr.com/tools/purge
-const zonesURL = "https://cdn.jsdelivr.net/gh/gn-math/assets@main/zones.json";
-const coverURL = "https://cdn.jsdelivr.net/gh/gn-math/covers@main";
-const htmlURL = "https://cdn.jsdelivr.net/gh/gn-math/html@main";
+const zonesURL = "https://raw.githubusercontent.com/gn-math/assets/main/zones.json";
+const coverURL = "https://raw.githubusercontent.com/gn-math/covers/main";
+const htmlURL = "https://raw.githubusercontent.com/gn-math/html/main";
 let zones = [];
 let popularityData = {};
 async function listZones() {
     try {
         const response = await fetch(zonesURL);
+        if (!response.ok) throw new Error(`Failed fetching zones: ${response.status} ${response.statusText}`);
         const json = await response.json();
         zones = json;
         await fetchPopularity();
